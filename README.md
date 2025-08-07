@@ -2,82 +2,130 @@
 CourseHub is a simple RESTful API for an online course selling platform. This project allows admins to create and manage courses, and users to sign up, browse, purchase, and view purchased courses. It features JWT-based authentication for secure access and uses MongoDB for persistent storage. Built with Node.js, Express, and Mongoose.
 Here are step-by-step instructions for using your CourseHub - Online Course Selling API based on your provided code:
 
-1. Prerequisites
-Node.js and npm installed.
+# CourseHub - Online Course Selling API
 
-MongoDB Atlas connection string (already used in your code).
+CourseHub is a RESTful API for an online course selling platform. This API allows admins to create and manage courses, and users to register, browse, purchase, and view purchased courses. It uses JWT for authentication and MongoDB for data storage. Built with Node.js, Express, and Mongoose.
 
-Clone this repository and navigate to the project directory.
+## Features
 
-2. Setup
-Install dependencies:
+- Admin registration & login
+- Course creation and management (admin only)
+- User registration & login
+- Browse all courses
+- Purchase courses
+- View purchased courses
+- JWT authentication for protected routes
 
-bash
-npm install
-Create a config.js file in your project root with your JWT secret:
+## Technologies Used
 
-js
-// config.js
-module.exports = {
-  JWT_SECRET: "your_secret_key"
-};
-3. Start the Server
-bash
-node index.js
-The server will run on http://localhost:3000
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- JSON Web Tokens (JWT)
 
-4. API Endpoints
-Admin
-POST /admin/signup
-Create a new admin.
-Body: { "username": "admin", "password": "pass" }
+## Getting Started
 
-POST /admin/signin
-Login as admin to receive a JWT token.
-Body: { "username": "admin", "password": "pass" }
+### Prerequisites
 
-POST /admin/courses
-Create a new course (JWT Bearer token required in Authorization header).
-Body: { "title": "Course", "description": "Desc", "imageLink": "URL", "price": 100 }
+- Node.js and npm installed
+- MongoDB connection string (e.g., from MongoDB Atlas)
 
-GET /admin/courses
-Get all courses (JWT Bearer token required).
+### Installation
 
-User
-POST /user/signup
-Register a new user.
-Body: { "username": "user", "password": "pass" }
+1. **Clone the repository:**
 
-POST /user/signin
-Login as user to receive a JWT token.
-Body: { "username": "user", "password": "pass" }
-
-GET /user/courses
-List all available courses.
-
-POST /user/courses/:courseId
-Purchase a course (JWT Bearer token required).
-
-GET /user/purchasedCourses
-View purchased courses (JWT Bearer token required).
-
-5. Using API Requests
-Use a tool like Postman, Insomnia, or curl to send HTTP requests to these endpoints.
-
-For protected routes, set the Authorization header:
+git clone https://github.com/yourusername/coursehub-api.git
+cd coursehub-api
 
 text
+
+2. **Install dependencies:**
+
+npm install
+
+text
+
+3. **Create `config.js` in the root folder and add your JWT secret:**
+
+// config.js
+module.exports = {
+JWT_SECRET: "your_secret_key"
+};
+
+text
+
+4. **Ensure your MongoDB connection string is correct**  
+(_Check `db.js` or `index.js` in your code._)
+
+### Running the Server
+
+node index.js
+
+text
+
+Server will start at `http://localhost:3000`
+
+## API Endpoints
+
+### Admin
+
+- **POST /admin/signup**
+  - Create a new admin.
+  - Body: `{ "username": "admin", "password": "pass" }`
+
+- **POST /admin/signin**
+  - Login as admin, receive JWT.
+  - Body: `{ "username": "admin", "password": "pass" }`
+
+- **POST /admin/courses**
+  - Add a course (requires JWT in `Authorization` header).
+  - Body: `{ "title": "...", "description": "...", "imageLink": "...", "price": 100 }`
+
+- **GET /admin/courses**
+  - List all courses (requires JWT).
+
+### User
+
+- **POST /user/signup**
+  - Create a new user.
+  - Body: `{ "username": "user", "password": "pass" }`
+
+- **POST /user/signin**
+  - Login as user, receive JWT.
+  - Body: `{ "username": "user", "password": "pass" }`
+
+- **GET /user/courses**
+  - Browse all courses.
+
+- **POST /user/courses/:courseId**
+  - Purchase a course (requires JWT).
+
+- **GET /user/purchasedCourses**
+  - View purchased courses (requires JWT).
+
+## Authentication
+
+For protected endpoints, set the `Authorization` header in your requests:
 Authorization: Bearer <your_jwt_token>
-Example curl command to create a course after logging in as admin:
 
-bash
-curl -X POST http://localhost:3000/admin/courses \
-  -H 'Authorization: Bearer <admin_jwt_token>' \
-  -H 'Content-Type: application/json' \
-  -d '{"title": "Node.js Basics", "description": "Learn Node", "imageLink": "http://...png", "price": 99}'
-6. Notes
-Passwords are stored as plain text in this sample. For production, use hashing and validation.
+text
 
-Update connection strings and secrets for your own deployment.
+## Example curl Command
 
-This guide should help you set up and use your online course selling API quickly. If you need example requests, feel free to ask!
+Create a course as admin (after login):
+
+curl -X POST http://localhost:3000/admin/courses
+-H 'Authorization: Bearer <admin_jwt_token>'
+-H "Content-Type: application/json"
+-d '{"title":"Node.js Basics","description":"Learn Node","imageLink":"http://...","price":99}'
+
+text
+
+## Notes
+
+- Passwords are stored in plain text for demo purposes. **Change this for production!**
+- Update the MongoDB connection string and secrets before deploying.
+
+---
+
+Feel free to fork, open issues, or contribute!
