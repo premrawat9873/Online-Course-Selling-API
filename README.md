@@ -34,7 +34,7 @@ CourseHub is a RESTful API for an online course selling platform. This API allow
 
 1. **Clone the repository:**
 
-git clone https://github.com/yourusername/coursehub-api.git
+git clone [https://github.com/yourusername/coursehub-api.git](https://github.com/premrawat9873/Online-Course-Selling-API.git)
 cd coursehub-api
 
 text
